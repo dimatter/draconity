@@ -1,0 +1,4 @@
+#!/bin/bash -u
+cd "$(dirname "$0")"
+lex -o lex.c rule.l
+yacc -d rule.y -o parser.c

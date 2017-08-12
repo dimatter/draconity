@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ulimit -c unlimited
+DYLD_FORCE_FLAT_NAMESPACE=1 DYLD_INSERT_LIBRARIES=lib/libmaclink.dylib /Applications/Dragon.app/Contents/MacOS/Dragon # 2>/dev/null
