@@ -51,6 +51,7 @@ typedef struct {
 extern drg_engine *_engine;
 
 extern drg_engine *(*_DSXEngine_New)();
+extern int (*_DSXEngine_Create)(char *s, uint64_t val, drg_engine **engine);
 extern int (*_DSXEngine_LoadGrammar)(drg_engine *engine, int type, dsx_dataptr *data, drg_grammar **grammar_out);
 extern int (*_DSXGrammar_Activate)(drg_grammar *grammar, uint64_t unk1, bool unk2, const char *main_rule);
 extern int (*_DSXGrammar_Deactivate)(drg_grammar *grammar, uint64_t unk1, const char *main_rule);

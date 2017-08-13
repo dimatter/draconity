@@ -10,7 +10,10 @@
 
 static void *server_so = NULL;
 drg_engine *_engine = NULL;
+// dragon 5
 drg_engine *(*_DSXEngine_New)();
+// dragon 6
+int (*_DSXEngine_Create)(char *s, uint64_t val, drg_engine **engine);
 int (*_DSXEngine_LoadGrammar)(drg_engine *engine, int type, dsx_dataptr *data, drg_grammar **grammar_out);
 int (*_DSXGrammar_Activate)(drg_grammar *grammar, uint64_t unk1, bool unk2, const char *main_rule);
 int (*_DSXGrammar_Deactivate)(drg_grammar *grammar, uint64_t unk1, const char *main_rule);
@@ -35,6 +38,7 @@ static void cons() {
     dprintf("%46s %p\n", "server.so", server_so);
     #define load(x) do { _##x = dlsym(server_so, #x); dprintf("%46s %p\n", #x, _##x); } while (0)
     load(DSXEngine_New);
+    load(DSXEngine_Create);
     load(DSXEngine_LoadGrammar);
     load(DSXGrammar_Activate);
     load(DSXGrammar_Deactivate);
@@ -60,6 +64,13 @@ void *DSXEngine_New() {
     _engine = _DSXEngine_New();
     printf("DSXEngine_New() = %p\n", _engine);
     return _engine;
+}
+
+int DSXEngine_Create(char *s, uint64_t val, drg_engine **engine) {
+    int ret = _DSXEngine_Create(s, val, engine);
+    _engine = *engine;
+    printf("DSXEngine_Create(%s, %u, &%p) = %d\n", s, val, engine, ret);
+    return ret;
 }
 
 // TODO: remove this?
